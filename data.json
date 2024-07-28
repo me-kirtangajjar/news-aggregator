@@ -1,7 +1,6 @@
 {
   "allData": [
     {
-      "id": 1,
       "name": "Clark Kent",
       "email": "clark@superman.com",
       "password": "Krypt()n8",

@@ -4,10 +4,15 @@ const allData = require("../data.json").allData;
 
 const userRegisterService = async (name, email, password) => {
   try {
+    const isUserExist = allData.find((user) => user.email == email);
+
+    if (isUserExist) {
+      return { status: 400, message: "User already exist, try to login" };
+    }
+
     const hashedPassword = await bcrypt.hash(password, 8);
 
     const userData = {
-      id: allData.length + 1,
       name,
       email,
       password: hashedPassword,
@@ -38,7 +43,7 @@ const userLoginService = async (email, password) => {
       return { status: 400, message: "Enter valid password" };
     }
 
-    const authToken = jwt.sign({ user: userData.id }, "thisiskirtangajjar", {
+    const authToken = jwt.sign({ user: userData.email }, "thisiskirtangajjar", {
       expiresIn: "30D",
     });
 
