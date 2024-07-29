@@ -4,8 +4,8 @@ const allData = require("../data.json").allData;
 
 const userRegisterService = async (name, email, password, preferences) => {
   try {
-    if(!email){
-      return {status:400}
+    if (!email) {
+      return { status: 400 };
     }
     const isUserExist = allData.find((user) => user.email == email);
 
@@ -26,7 +26,7 @@ const userRegisterService = async (name, email, password, preferences) => {
 
     return {
       status: 200,
-      data:userData,
+      data: userData,
     };
   } catch (error) {
     console.log(error);
@@ -48,7 +48,7 @@ const userLoginService = async (email, password) => {
 
     const authToken = jwt.sign(
       { userEmail: userData.email },
-      "thisiskirtangajjar",
+      process.env.JWTTOKENKEY,
       {
         expiresIn: "30D",
       }

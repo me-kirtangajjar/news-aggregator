@@ -10,7 +10,7 @@ const validateUser = async (req, res, next) => {
         .send({ message: "Token required! Please login to generate token" });
     }
 
-    jwt.verify(token, "thisiskirtangajjar", (error, decodedString) => {
+    jwt.verify(token, process.env.JWTTOKENKEY, (error, decodedString) => {
       if (error) {
         return res.status(401).send({ message: "Login" });
       }

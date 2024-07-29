@@ -50,7 +50,7 @@ const fetchUserNewsService = async (email) => {
       `https://newsapi.org/v2/top-headlines?language=en&country=in${preferencesUrl}`,
       {
         headers: {
-          "x-api-key": "0d8aca9861644d819e9492c47ca83875",
+          "x-api-key": process.env.NEWSAPIKEY,
         },
       }
     );
