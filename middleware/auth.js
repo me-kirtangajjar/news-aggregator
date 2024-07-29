@@ -6,7 +6,7 @@ const validateUser = async (req, res, next) => {
 
     if (!token) {
       return res
-        .status(400)
+        .status(401)
         .send({ message: "Token required! Please login to generate token" });
     }
 

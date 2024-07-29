@@ -4,6 +4,9 @@ const allData = require("../data.json").allData;
 
 const userRegisterService = async (name, email, password, preferences) => {
   try {
+    if(!email){
+      return {status:400}
+    }
     const isUserExist = allData.find((user) => user.email == email);
 
     if (isUserExist) {
@@ -22,9 +25,8 @@ const userRegisterService = async (name, email, password, preferences) => {
     allData.push(userData);
 
     return {
-      status: 201,
-      message: "User registered successfully",
-      data: userData,
+      status: 200,
+      data:userData,
     };
   } catch (error) {
     console.log(error);
@@ -41,7 +43,7 @@ const userLoginService = async (email, password) => {
 
     const comparePassword = await bcrypt.compare(password, userData.password);
     if (!comparePassword) {
-      return { status: 400, message: "Enter valid password" };
+      return { status: 401, message: "Enter valid password" };
     }
 
     const authToken = jwt.sign(

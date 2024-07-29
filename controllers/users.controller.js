@@ -13,7 +13,7 @@ const userRegister = async (req, res) => {
       preferences
     );
 
-    res.status(status).send({ message, data });
+    res.status(status).send( data );
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Something went wrong !!!" });
@@ -25,7 +25,7 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const { status, message, data } = await userLoginService(email, password);
 
-    res.status(status).send({ message, data });
+    res.status(status).send({ message, token:data });
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Something went wrong !!!" });
