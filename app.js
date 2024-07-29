@@ -1,12 +1,12 @@
 const express = require("express");
-const usersRoutes = require("./routes/users.routes");
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/users", usersRoutes);
+app.use("/users", require("./routes/users.routes"));
+app.use("/n", require("./routes/news.routes"));
 
 app.listen(port, (err) => {
   if (err) {

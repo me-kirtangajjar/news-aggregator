@@ -1,5 +1,14 @@
+const {
+  fetchUserNewsService,
+  fetchUserNewsPreferencesService,
+} = require("../services/news.service");
+
 const getUserPreferences = async (req, res) => {
   try {
+    const { status, message, data } = await fetchUserNewsPreferencesService(
+      req.userEmail
+    );
+    return res.status(status).send({ message, data });
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Something went wrong !!!" });
@@ -8,6 +17,7 @@ const getUserPreferences = async (req, res) => {
 
 const putUserPreferences = async (req, res) => {
   try {
+    // const { status, message, data } = await fetchUserNewsService(req.userEmail);
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Something went wrong !!!" });
@@ -16,6 +26,8 @@ const putUserPreferences = async (req, res) => {
 
 const getNews = async (req, res) => {
   try {
+    const { status, message, data } = await fetchUserNewsService(req.userEmail);
+    return res.status(status).send({ message, data });
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Something went wrong !!!" });

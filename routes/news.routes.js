@@ -4,9 +4,10 @@ const {
   putUserPreferences,
   getNews,
 } = require("../controllers/news.controller");
+const { validateUser } = require("../middleware/auth");
 
-router.get("/preferences", getUserPreferences);
+router.get("/preferences", validateUser, getUserPreferences);
 router.put("/preferences", putUserPreferences);
-router.get("/news", getNews);
+router.get("/news", validateUser, getNews);
 
 module.exports = router;

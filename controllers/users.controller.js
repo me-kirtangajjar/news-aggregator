@@ -5,11 +5,12 @@ const {
 
 const userRegister = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, preferences } = req.body;
     const { status, message, data } = await userRegisterService(
       name,
       email,
-      password
+      password,
+      preferences
     );
 
     res.status(status).send({ message, data });

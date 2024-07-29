@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const allData = require("../data.json").allData;
 
-const userRegisterService = async (name, email, password) => {
+const userRegisterService = async (name, email, password, preferences) => {
   try {
     const isUserExist = allData.find((user) => user.email == email);
 
@@ -16,6 +16,7 @@ const userRegisterService = async (name, email, password) => {
       name,
       email,
       password: hashedPassword,
+      preferences,
     };
 
     allData.push(userData);
@@ -27,7 +28,7 @@ const userRegisterService = async (name, email, password) => {
     };
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Something went wrong !!!" });
+    return { status: 500, message: "Something went wrong !!!" };
   }
 };
 
@@ -43,9 +44,13 @@ const userLoginService = async (email, password) => {
       return { status: 400, message: "Enter valid password" };
     }
 
-    const authToken = jwt.sign({ user: userData.email }, "thisiskirtangajjar", {
-      expiresIn: "30D",
-    });
+    const authToken = jwt.sign(
+      { userEmail: userData.email },
+      "thisiskirtangajjar",
+      {
+        expiresIn: "30D",
+      }
+    );
 
     return {
       status: 200,
@@ -54,7 +59,7 @@ const userLoginService = async (email, password) => {
     };
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Something went wrong !!!" });
+    return { status: 500, message: "Something went wrong !!!" };
   }
 };
 
